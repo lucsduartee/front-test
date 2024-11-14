@@ -52,7 +52,7 @@ const { products } = productsStore;
 
 async function createOrder() {
   try {
-    const order = await $fetch("http://localhost:33473/api/orders", {
+    const order = await $fetch("http://localhost:43357/api/orders", {
       method: "POST",
       body: {
         value: cartTotalValue.value,
@@ -60,10 +60,10 @@ async function createOrder() {
     });
 
     if (order) {
-      console.log('requisiçao deu certo')
+      alert('requisiçao deu certo')
     }
   } catch (e) {
-    console.log("trata o erro aqui", e);
+    alert("trata o erro aqui", e);
   }
 }
 </script>

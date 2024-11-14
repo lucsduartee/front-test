@@ -121,11 +121,6 @@ export const useProductsStore = defineStore('products', {
         name: 'c5 - Item 4',
         value: 800,
       },
-      {
-        category: 'category5',
-        name: 'c5 - Item 5',
-        value: 200,
-      },
     ],
   }),
 
