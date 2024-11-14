@@ -131,8 +131,17 @@ export const useProductsStore = defineStore('products', {
 
   getters: {
     getProductsByCategory: (state) => {
-      return (category) => state
-        .products.filter((product) => product.category === category)
+      const categoriesDictionary = {
+        category1: 'c1',
+        category2: 'c2',
+        category3: 'c3',
+        category4: 'c4',
+        category5: 'c5',
+      }
+      
+      return (category, name) => state
+        .products.filter(
+          (product) => product.category === category && product.name === `${categoriesDictionary[category]} - ${name}`)
     },
   },
 });

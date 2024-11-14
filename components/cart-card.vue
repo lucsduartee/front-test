@@ -1,23 +1,21 @@
 <template>
   <div>
-    <v-col v-for="(variant, i) in variants" :key="i" cols="12">
-      <v-card :color="color" variant="tonal" class="mx-auto">
-        <v-card-item>
-          <div>
-            <div class="text-h6 mb-1">Headline</div>
-            <div class="text-caption">
-              Greyhound divisely hello coldly fonwderfully
-            </div>
-          </div>
-        </v-card-item>
-      </v-card>
-    </v-col>
+    <v-card color="indigo" variant="tonal" class="cart-card">
+      <v-card-item>
+        <div>
+          <div class="text-h6 mb-1">{{ props.name }} - {{ props.value }}</div>
+        </div>
+      </v-card-item>
+    </v-card>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-
-const variants = ["elevated", "flat", "tonal", "outlined"];
-const color = ref("indigo");
+const props = defineProps(["name", "value"]);
 </script>
+
+<style scoped>
+  .cart-card {
+    margin: 12px;
+  }
+</style>

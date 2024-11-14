@@ -7,23 +7,54 @@
         <div class="items">
           <v-container>
             <v-row class="cards">
-              <card v-for="item in 10" :key="item" />
+              <card
+                v-for="product in products"
+                :key="product.name"
+                :name="product.name"
+                :value="product.value"
+                :category="product.category"
+              />
             </v-row>
           </v-container>
         </div>
         <div class="cart">
-          <cart-card />
+          <div class="cart-items">
+            <cart-card
+              v-for="item in cart"
+              :key="item.name"
+              :name="item.name"
+              :value="item.value"
+              :category="item.category"
+            />
+          </div>
+          <v-btn color="indigo" variant="outlined" class="mx-3 my-3 cart-btn">Comprar - {{cartTotalValue}}</v-btn>
         </div>
       </div>
     </v-main>
   </v-container>
 </template>
 
+<script setup>
+import { storeToRefs } from "pinia";
+import { useTabsStore } from "@/stores/tabs";
+import { useProductsStore } from "@/stores/products";
+import { useCartStore } from "@/stores/cart";
+
+const tabsStore = useTabsStore();
+const productsStore = useProductsStore();
+const cartStore = useCartStore();
+
+const { cart, cartTotalValue } = storeToRefs(cartStore);
+
+const { products } = productsStore;
+</script>
+
 
 <style scoped>
 .container {
   margin-top: 32px;
   display: flex;
+  gap: 12px;
 }
 
 .items {
@@ -36,8 +67,22 @@
 }
 
 .cart {
-  border: 1px solid #000000;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   flex-grow: 1;
   width: 20%;
+  height: 600px;
+  padding: 12px;
+}
+
+.cart-items {
+  flex-grow: 1;
+  height: 300px;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 </style>
