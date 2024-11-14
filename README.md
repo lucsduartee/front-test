@@ -1,75 +1,64 @@
-# Nuxt Minimal Starter
+## Teste Técnico
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Esse repositório faz parte de uma feature para um teste técnico.
+A feature consiste na criação de uma ordem a partir de itens selecionados.
+Para a crição tomamos apenas como referencia o valor total de todos os produtos selecionados.
 
-## Setup
+Segue abaixo uma simplificação das entidades do que viria a ser um backend e um wireframe da interface do frontend:
 
-Make sure to install dependencies:
+![backend](back.png)
+![frontend](front.png)
 
-```bash
-# npm
+## Como uppar o projeto?
+Para uppar o projeto é necessário fazer o clone de dois repositórios em um diretório como base,
+exemplo `/path/back-test` e `/path/front-test`:
+
+```sh
+git clone https://github.com/lucsduartee/back-test.git
+git clone https://github.com/lucsduartee/front-test.git
+```
+
+Depois disso entre em cada um dos diretórios em terminais diferentes, rodando em ambos os terminais os seguintes comandos:
+
+```sh
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+O terminal que se refere ao backend vai retornar algo do tipo:
 
-Build the application for production:
+```
+[ info ] starting HTTP server...
+╭──────────────────────────────────────────────────╮
+│                                                  │
+│    Server address: http://localhost:46415        │
+│    Watch Mode: HMR                               │
+│    Ready in: 317 ms                              │
+│                                                  │
+╰──────────────────────────────────────────────────╯
+[13:46:38.365] INFO (17076): started HTTP server on localhost:46415
 
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
-Locally preview production build:
+onde 46415 se refere a porta em que a aplicação backend está rodando.
+Feito isso, vá até o diretório `/front-test/pages/index.vue` do projeto frontend
+altere a porta na linha 55 para o valor da porta em que a aplicação backend está rodando:
 
-```bash
-# npm
-npm run preview
+```js
+async function createOrder() {
+  //... 
+  try {
+    const order = await $fetch("http://localhost:46415/api/orders", {
+      method: "POST",
+      body: {
+        value: cartTotalValue.value,
+      },
+    });
 
-# pnpm
-pnpm preview
+  // ...
 
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Feito isso, abra o navegador no endereço `http://localhost:3000`, e a simples aplicação frontend estará rodando e você poderá simular a crição de uma ordem.
+
+Você pode conferir o sucesso da criação da ordem usando um api client de sua preferência, e bater na rota `http://localhost:46415/api/orders`, (mesma lógica de portas do backend) usando o método GET.
