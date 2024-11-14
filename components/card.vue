@@ -17,8 +17,6 @@
     </v-card-subtitle>
 
     <v-card-actions>
-      <v-btn color="orange" text="Fav"></v-btn>
-
       <v-btn color="orange" text="Comprar"></v-btn>
     </v-card-actions>
   </v-card>
