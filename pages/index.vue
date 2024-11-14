@@ -27,7 +27,9 @@
               :category="item.category"
             />
           </div>
-          <v-btn color="indigo" variant="outlined" class="mx-3 my-3 cart-btn">Comprar - {{cartTotalValue}}</v-btn>
+          <v-btn @click="createOrder" color="indigo" variant="outlined" class="mx-3 my-3"
+            >Comprar - {{ cartTotalValue }}</v-btn
+          >
         </div>
       </div>
     </v-main>
@@ -47,6 +49,23 @@ const cartStore = useCartStore();
 const { cart, cartTotalValue } = storeToRefs(cartStore);
 
 const { products } = productsStore;
+
+async function createOrder() {
+  try {
+    const order = await $fetch("http://localhost:33473/api/orders", {
+      method: "POST",
+      body: {
+        value: cartTotalValue.value,
+      },
+    });
+
+    if (order) {
+      console.log('requisiçao deu certo')
+    }
+  } catch (e) {
+    console.log("trata o erro aqui", e);
+  }
+}
 </script>
 
 
@@ -74,7 +93,7 @@ const { products } = productsStore;
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
-  width: 20%;
+  width: 25%;
   height: 600px;
   padding: 12px;
 }
